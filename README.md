@@ -9,11 +9,12 @@ A ideia central do seminário é encontrar o maior subconjunto possível de tare
 
 ```text
 Selecao-Atividades-APA/
-├── scr
-│   ├── main.cpp
-├── Gráfico/
-│   └── grafico.py
 ├── Data/
 │   └── dados.csv
+├── Gráfico/
+│   └── grafico.py
+├── main.cpp
+├── comp.cpp
 ├── README.md
+
 
