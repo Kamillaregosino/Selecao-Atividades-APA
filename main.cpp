@@ -2,45 +2,53 @@
 #include <algorithm>
 using namespace std;
 
-struct Activity
+struct Atividade
 {
-   int start, end;
+   int inicio, fim;
 };
 
-bool comp(Activity act1, Activity act2)
+// Função de comparação para ordenar as atividades pelo tempo de término
+bool comparar(Atividade ativ1, Atividade ativ2)
 {
-   return (act1.end < act2.end);
+   return (ativ1.fim < ativ2.fim);
 }
 
-void maxActivity(Activity act[], int n)
+void maxAtividades(Atividade listaAtiv[], int n)
 {
-   sort(act, act + n, comp);
-   cout << "Selected Activities are: " << endl;
-   int i = 0, count = 1;
-   cout << "Atividade " << i << "-> Início: " << act[i].start
-        << " Fim: " << act[i].end << endl;
+   sort(listaAtiv, listaAtiv + n, comparar);
+   cout << "Atividades Selecionadas são: " << endl;
+   
+   int i = 0, contador = 1;
+   cout << "Atividade " << i << "-> Início: " << listaAtiv[i].inicio
+        << " Fim: " << listaAtiv[i].fim << endl;
+        
    for (int j = 1; j < n; j++)
    {
-      if (act[j].start >= act[i].end)
+      if (listaAtiv[j].inicio >= listaAtiv[i].fim)
       {
-         cout << "Atividade " << j << "-> Início: " << act[j].start
-              << " Fim: " << act[j].end << endl;
+         cout << "Atividade " << j << "-> Início: " << listaAtiv[j].inicio
+              << " Fim: " << listaAtiv[j].fim << endl;
          i = j;
-         count++;
+         contador++;
       }
    }
-   cout << "Total de Atividades Selecionadas: " << count << endl;
+   cout << "Total de Atividades Selecionadas: " << contador << endl;
 }
+
 int main()
 {
-   Activity actArr[] = {{5, 9}, {1, 2}, {3, 4}, {0, 6}, {5, 7}, {8, 9}};
+   // Array de atividades de exemplo
+   Atividade arrayAtiv[] = {{5, 9}, {1, 2}, {3, 4}, {0, 6}, {5, 7}, {8, 9}};
    int n = 6;
+   
    cout << "Atividades com seus tempos de início e término: " << endl;
    for (int i = 0; i < n; i++)
    {
-      cout << "Atividade " << i << "-> Início: " << actArr[i].start
-           << " Fim: " << actArr[i].end << endl;
+      cout << "Atividade " << i << "-> Início: " << arrayAtiv[i].inicio
+           << " Fim: " << arrayAtiv[i].fim << endl;
    }
-   maxActivity(actArr, n);
+   
+   maxAtividades(arrayAtiv, n);
+   
    return 0;
 }

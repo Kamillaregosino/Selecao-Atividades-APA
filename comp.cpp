@@ -8,19 +8,20 @@
 using namespace std;
 using namespace std::chrono;
 
-struct Activity {
-    int start, end;
+struct Atividade {
+    int inicio, fim;
 };
 
-bool comp(Activity act1, Activity act2) {
-    return (act1.end < act2.end);
+// Função de comparação para ordenar as atividades pelo tempo de término
+bool compararAtividades(Atividade ato1, Atividade ato2) {
+    return (ato1.fim < ato2.fim);
 }
 
-void maxActivitySilent(vector<Activity>& act) {
-    sort(act.begin(), act.end(), comp);
+void selecaoAtividadesSilenciosa(vector<Atividade>& atividades) {
+    sort(atividades.begin(), atividades.end(), compararAtividades);
     int i = 0;
-    for (int j = 1; j < (int)act.size(); j++) {
-        if (act[j].start >= act[i].end) {
+    for (int j = 1; j < (int)atividades.size(); j++) {
+        if (atividades[j].inicio >= atividades[i].fim) {
             i = j;
         }
     }
@@ -42,21 +43,21 @@ int main() {
     cout << "Iniciando testes e salvando em Data/resultados_complexidade.csv..." << endl;
 
     for (int n : tamanhos) {
-        vector<Activity> actArr(n);
+        vector<Atividade> listaAtividades(n);
         for (int i = 0; i < n; i++) {
-            actArr[i].start = rand() % n;
-            actArr[i].end = actArr[i].start + (rand() % 20 + 1);
+            listaAtividades[i].inicio = rand() % n;
+            listaAtividades[i].fim = listaAtividades[i].inicio + (rand() % 20 + 1);
         }
 
-        auto start = high_resolution_clock::now();
-        maxActivitySilent(actArr);
-        auto stop = high_resolution_clock::now();
+        auto inicioTempo = high_resolution_clock::now();
+        selecaoAtividadesSilenciosa(listaAtividades);
+        auto fimTempo = high_resolution_clock::now();
 
-        auto duration = duration_cast<microseconds>(stop - start);
-        double teoria = n * log2(n);
+        auto duracao = duration_cast<microseconds>(fimTempo - inicioTempo);
+        double valorTeorico = n * log2(n);
 
         // Escrevendo no arquivo CSV
-        arquivo << n << "," << duration.count() << "," << teoria << endl;
+        arquivo << n << "," << duracao.count() << "," << valorTeorico << endl;
         
         cout << "Concluido N = " << n << endl;
     }
