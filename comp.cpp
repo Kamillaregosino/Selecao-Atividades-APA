@@ -17,7 +17,7 @@ bool compararAtividades(Atividade ato1, Atividade ato2) {
     return (ato1.fim < ato2.fim);
 }
 
-void selecaoAtividadesSilenciosa(vector<Atividade>& atividades) {
+void selecaoAtividades(vector<Atividade>& atividades) {
     sort(atividades.begin(), atividades.end(), compararAtividades);
     int i = 0;
     for (int j = 1; j < (int)atividades.size(); j++) {
@@ -50,7 +50,7 @@ int main() {
         }
 
         auto inicioTempo = high_resolution_clock::now();
-        selecaoAtividadesSilenciosa(listaAtividades);
+        selecaoAtividades(listaAtividades);
         auto fimTempo = high_resolution_clock::now();
 
         auto duracao = duration_cast<microseconds>(fimTempo - inicioTempo);
